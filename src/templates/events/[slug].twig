@@ -1,0 +1,101 @@
+{% extends template %}
+
+{% block content %}
+  {% if event %}
+    <header class="article-header push">
+      <a class="context-marker context-marker--dark context-marker--border" href="/events">Events</a> <h1 class="article-header__title">{{ event.name }}</h1>
+      <ul class="article-header__meta">
+        <li>{{ event.place.name }}</li>
+        <li>{{ event.createdAt|date('h:i A, d M Y', event.entryTz) }}</li>
+      </ul>
+    </header>
+
+    <div class="push--large">
+      {% if event.images[1] %}
+        <figure class="story-block__figure">
+          <img class="event__image--mobile" src="{{ event.images[0].src }}" alt="{{ event.name }}" width="{{ event.images[0].width }}" height="{{ event.images[0].height }}" />
+          <img class="event__image--desktop" src="{{ event.images[1].src }}" alt="{{ event.name }}" width="{{ event.images[1].width }}" height="{{ event.images[1].height }}" />
+        </figure>
+      {% endif %}
+      <div class="d-grid d-grid--focal">
+        <div class="grid__item event__post" style="">
+          <pre class="event__description">{{ event.description }}</pre>
+        </div>
+        <div class="grid__item sidebar event__tickets" data-origin="519">
+          <iframe class="event__iframe" src="{{ baseUrl }}/embed/tickets/{{ event.slug }}"></iframe>
+        </div>
+        <div class="clear" />
+      </div>
+    </div>
+  {% else %}
+    <div class="d-grid d-grid--focal">
+      <div class="grid__item event__post">
+        <h3 class="story-block__title">Event not found</h3>
+        <div class="event__description">
+          <p>We're sorry, but the event you are looking for is not available or may have been moved. Please check the URL or go back to our events page to explore other upcoming events.</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <style>
+    .event__post {
+      padding-top: 20px;
+      flex-direction: column-reverse;
+    
+      @media screen and (min-width: 1063px) {
+        max-width: 597px;
+      }
+    }
+    
+    .story-block__figure img.event__image--mobile {
+      @media screen and (min-width: 1063px) {
+        display: none;
+      }
+    }
+    
+    .story-block__figure img.event__image--desktop {
+      display: none;
+    
+      @media screen and (min-width: 1063px) {
+        display: block;
+      }
+    }
+    
+    .event__description {
+      font-family: sans-serif;
+      white-space: pre-wrap;
+      font-size: 18px;
+      line-height: 28px;
+      color: #302e2d;
+      margin-bottom: 40px;
+      text-align: justify;
+      max-width: 100%;
+    }
+    
+    .event__iframe {
+      width: 100%;
+      border: none;
+    }
+    
+    .event__tickets {
+      padding-top: 20px;
+      padding-bottom: 0px;
+      display: block;
+      width: 100%;
+    
+      @media screen and (min-width: 1063px) {
+        max-width: 375px;
+      }
+    }
+  </style>
+
+  <script>
+    window.addEventListener('message', ({ data }) => {
+      const iframeElement = document.querySelector('.event__iframe')
+      if (iframeElement && data.height) {
+        iframeElement.style.height = `${data.height}px`
+      }
+    })
+  </script>
+{% endblock %}
