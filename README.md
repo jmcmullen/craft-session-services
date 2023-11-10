@@ -1,6 +1,9 @@
 # session-services
 
-Session Services integration for Craft CMS
+Session Services x Mixmag integration for Craft CMS.
+
+![image](https://github.com/jmcmullen/craft-session-services/assets/6767542/cabb1a4c-7b2e-40e9-a1e8-537448ea8944)
+
 
 ## Requirements
 
