@@ -1,4 +1,4 @@
-# session-services
+# Session Services for Craft CMS
 
 Session Services x Mixmag integration for Craft CMS.
 
