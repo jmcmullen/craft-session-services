@@ -3,8 +3,41 @@
 {% block content %}
   {% set featured = events[0]|default(null) %}
 
+  <div class="do">
+    <ul class="tabs pull--pad push">
+      <li class="tabs__tab {{ activeFilter ? '' : 'tabs__tab--active' }}">
+        <a href="/events">Events</a>
+      </li>
+      {% for place in placeKeys %}
+        {% set keys = place|keys %}
+        {% set firstKey = keys[0] %}
+        <li class="tabs__tab {{ activeFilter == attribute(place, firstKey) ? 'tabs__tab--active' : '' }}">
+          <a href="/events?{{ firstKey }}={{ attribute(place, firstKey) }}">{{ attribute(place, firstKey) }}</a>
+        </li>
+      {% endfor %}
+      <div class="clear"></div>
+    </ul>
+  </div>
+  <div class="mo">
+    <ul class="section-filter__select section-filter__select--mo">
+      <li>
+        <a href="/events">Events <span class="section-filter__indicator">▼</span></a>
+        <ul>
+          {% for place in placeKeys %}
+            {% set keys = place|keys %}
+            {% set firstKey = keys[0] %}
+            <li>
+              <a href="/events?{{ firstKey }}={{ attribute(place, firstKey) }}">{{ attribute(place, firstKey) }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+      <div class="clear"></div>
+    </ul>
+  </div>
+
   {% if featured %}
-    <div class="push--large" style="padding-top: 20px;">
+    <div class="push--large">
       <article class="story-block story-block--focal story-block--separated js-no-border" dir="ltr">
         <a href="/events/{{ featured.slug }}" class="story-block__clickable">
           {% if featured.images[1] %}

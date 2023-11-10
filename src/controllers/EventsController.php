@@ -22,12 +22,19 @@ class EventsController extends Controller
     {
         $plugin = SessionServices::getInstance();
         $settings = $plugin->getSettings();
-        $events = $this->_api->getEventsList();
+        $placeKeys = $this->_api->getPlaceKeys();
+        $state = $this->request->getParam('state');
+        $city = $this->request->getParam('city');
+        $country = $this->request->getParam('country');
+        $activeFilter = $state ?? $city ?? $country;
+        $events = $activeFilter ? $this->_api->getPlaceEvents($state, $city, $country) : $this->_api->getEventsList();
 
         return $this->renderTemplate('_session-services/events', [
             'baseUrl' => $settings->baseUrl,
             'template' => $settings->template,
             'events' => $events,
+            'placeKeys' => $placeKeys,
+            'activeFilter' => $activeFilter,
         ]);
     }
 
@@ -35,13 +42,14 @@ class EventsController extends Controller
     {
         $plugin = SessionServices::getInstance();
         $settings = $plugin->getSettings();
-        $api = new EventsApi();
         $event = $this->_api->getEvent($slug);
+        $placeKeys = $this->_api->getPlaceKeys();
+
 
         return $this->renderTemplate('_session-services/events/[slug].twig', [
-            'event' => $event,
             'baseUrl' => $settings->baseUrl,
             'template' => $settings->template,
+            'event' => $event,
         ]);
     }
 }
