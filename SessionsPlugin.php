@@ -24,6 +24,11 @@ class SessionsPlugin extends BasePlugin
         return 'https://session.services';
     }
 
+    function getReleaseFeedUrl()
+    {
+        return 'https://raw.githubusercontent.com/jmcmullen/craft-session-services/2.x/releases.json';
+    }
+
 
     public function registerSiteRoutes()
     {
