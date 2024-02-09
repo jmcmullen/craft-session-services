@@ -1,0 +1,37 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: "Index Template"|t,
+    id: 'indexTemplate',
+    name: 'indexTemplate',
+    value: settings.indexTemplate,
+    errors: settings.getErrors('indexTemplate'),
+    required: true
+}) }}
+
+{{ forms.textField({
+    label: "Entry Template"|t,
+    id: 'entryTemplate',
+    name: 'entryTemplate',
+    value: settings.entryTemplate,
+    errors: settings.getErrors('entryTemplate'),
+    required: true
+}) }}
+
+{{ forms.textField({
+    label: "Base URL"|t,
+    id: 'baseUrl',
+    name: 'baseUrl',
+    value: settings.baseUrl,
+    errors: settings.getErrors('baseUrl'),
+    required: true
+}) }}
+
+{{ forms.textField({
+    label: "API URL"|t,
+    id: 'apiUrl',
+    name: 'apiUrl',
+    value: settings.apiUrl,
+    errors: settings.getErrors('apiUrl'),
+    required: true
+}) }}
